@@ -10,15 +10,25 @@ module Replay
         req.url "errors/#{error_id}.xml"
         req.params[:auth_token] = @auth_token
       end
-      resp.body
+      resp.body['group']
     end
 
     def self.notices(error_id)
+      page = 1
       resp = client.get do |req|
-        req.url "errors/#{error_id}/notices.xml"
+        req.url "groups/#{error_id}/notices.xml"
+        req.params[:auth_token] = @auth_token
+        req.params[:page] = page
+      end
+      resp.body['notices']
+    end
+
+    def self.notice(error_id, notice_id)
+      resp = client.get do |req|
+        req.url "groups/#{error_id}/notices/#{notice_id}.xml"
         req.params[:auth_token] = @auth_token
       end
-      resp.body
+      resp.body['notice']
     end
 
     protected
