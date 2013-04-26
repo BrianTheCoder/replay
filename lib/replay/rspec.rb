@@ -1,3 +1,5 @@
+require 'tilt'
+
 module Replay
   class Rspec
 
